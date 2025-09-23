@@ -14,6 +14,7 @@ Nombre (String c){
 
 
 }
+const caracteresPermitidos = r'[A-Za-z]';
 const longitudMaximaPermitida = 15;
 const longitudMinimaPermitida = 5;
 class longitudMinimaException extends Error{
@@ -21,5 +22,8 @@ class longitudMinimaException extends Error{
 }
 
 class longitudMaximaException extends Error{
+  
+}
+class caracteresNoPermitidosException extends Error{
   
 }
