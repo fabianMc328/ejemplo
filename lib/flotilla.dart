@@ -1,6 +1,8 @@
 
 
 enum TipodeBarco {bote, lancha, submarino, crucero, portaaviones}
+enum direccionesHacia{arriba, abajo, izquierda, derecha}
+
 class Barco{
 TipodeBarco tipo;
 Barco(this.tipo);
