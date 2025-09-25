@@ -85,4 +85,29 @@ void main() {
 
     expect(flotilla.cantidad, equals(5));
   });
+
+  test('Lancha de tamaño 2 hacia la derecha desde (1,1)', () {
+    // Arrange
+    var barco = Barco(
+      tipo: TipodeBarco.lancha,
+      direccion: direccionesHacia.derecha,
+      puntoinicial: Punto(columna: 1, fila: 1),
+    );
+
+    // Act
+    var nuevoBarco = barco.agregarBarco(
+      Punto(columna: 1, fila: 1),
+      TipodeBarco.lancha,
+      direccionesHacia.derecha,
+    );
+
+    // Assert
+    expect(nuevoBarco.elementos.length, 2);
+
+    expect(nuevoBarco.elementos[0].punto.columna, 1);
+    expect(nuevoBarco.elementos[0].punto.fila, 1);
+
+    expect(nuevoBarco.elementos[1].punto.columna, 2);
+    expect(nuevoBarco.elementos[1].punto.fila, 1);
+  });
 }

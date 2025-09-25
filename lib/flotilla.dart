@@ -1,5 +1,6 @@
 import 'punto.dart';
 import 'elemento.dart';
+
 enum TipodeBarco {bote, lancha, submarino, crucero, portaaviones}
 enum direccionesHacia{arriba, abajo, izquierda, derecha}
 
@@ -12,14 +13,58 @@ Barco(
   {required this.tipo, 
   required this.direccion, 
   required this.puntoinicial});
+
+ Barco agregarBarco(Punto punto, TipodeBarco tipo, direccionesHacia direccion) {
+  
+    int tamanio;
+    switch (tipo) {
+      case TipodeBarco.bote:
+        tamanio = 1;
+        break;
+      case TipodeBarco.lancha:
+        tamanio = 2;
+        break;
+      case TipodeBarco.submarino:
+        tamanio = 3;
+        break;
+      case TipodeBarco.crucero:
+        tamanio = 4;
+        break;
+      case TipodeBarco.portaaviones:
+        tamanio = 5;
+        break;
+    }
+
+   for (int i = 0; i < tamanio; i++) {
+  switch (direccion) {
+    case direccionesHacia.arriba:
+      elementos.add(
+        Elemento(punto: Punto(columna: punto.columna, fila: punto.fila - i)),
+      );
+      break;
+    case direccionesHacia.abajo:
+      elementos.add(
+        Elemento(punto: Punto(columna: punto.columna, fila: punto.fila + i)),
+      );
+      break;
+    case direccionesHacia.izquierda:
+      elementos.add(
+        Elemento(punto: Punto(columna: punto.columna - i, fila: punto.fila)),
+      );
+      break;
+    case direccionesHacia.derecha:
+      elementos.add(
+        Elemento(punto: Punto(columna: punto.columna + i, fila: punto.fila)),
+      );
+      break;
+  }
 }
 
-Barco barco = Barco(
-  tipo: TipodeBarco.bote, 
-  direccion: direccionesHacia.arriba, 
-  puntoinicial: Punto(columna: 0, fila: 0)
+    return this;
+  }
+}
 
-);
+
 
 
 
