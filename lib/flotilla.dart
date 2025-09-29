@@ -73,11 +73,53 @@ class Flotilla {
   List<Barco> _barcos;
   int get cantidad => _barcos.length;
   Flotilla(List<Barco> this._barcos){
+
   if(_barcos.length!=5)throw FlotillaCantidadException();
   if(_barcos.map((e) => e.tipo).toSet().length!=5)throw FlotillaTiposException();
+
+if (_barcos.any((barco) => 
+      barco.elementos.any((element) => 
+          element.punto.fila < 0 || 
+          element.punto.fila > 9 || 
+          element.punto.columna < 0 || 
+          element.punto.columna > 9
+      )
+  )) {
+    throw FlotillaFueraDeRangoException();
+  }
+
+EvaluarDistancia();
+
+
+
+
 }
 
 
+  void EvaluarDistancia(){
+
+for(int i=0; i<_barcos.length-1;i++){
+var Barco1 = _barcos[i];
+
+  for(int j=i+1; j<_barcos.length;j++){
+    var Barco2 = _barcos[j];
+
+    for(var elemento1 in Barco1.elementos){
+      for(var elemento2 in Barco2.elementos){
+        if(elemento1.punto.distancia(elemento2.punto)<=1){
+          throw FlotillaMUYJUNTaException();
+        }
+      }
+    }
+
+
+
+  }
+}  
+
+
+
+  }
 
 
 
@@ -86,5 +128,11 @@ class FlotillaCantidadException extends Error{
   
 }
 class FlotillaTiposException extends Error{
+  
+}
+class FlotillaFueraDeRangoException extends Error{
+  
+}
+class FlotillaMUYJUNTaException extends Error{
   
 }

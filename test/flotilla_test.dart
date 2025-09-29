@@ -110,4 +110,59 @@ void main() {
     expect(nuevoBarco.elementos[1].punto.columna, 2);
     expect(nuevoBarco.elementos[1].punto.fila, 1);
   });
+  test('barco puesto fuera de los rangos establecidos del mapa', () {
+    var lancha= Barco
+    (tipo: TipodeBarco.lancha, 
+    direccion: direccionesHacia.derecha, 
+    puntoinicial:Punto(columna: 9, fila: 9));
+lancha.agregarBarco(lancha.puntoinicial, lancha.tipo, lancha.direccion);
+
+var bote= Barco
+    (tipo: TipodeBarco.bote, 
+    direccion: direccionesHacia.derecha, 
+    puntoinicial:Punto(columna: 1, fila: 1));
+bote.agregarBarco(lancha.puntoinicial, lancha.tipo, lancha.direccion);
+
+var submarino= Barco
+    (tipo: TipodeBarco.submarino, 
+    direccion: direccionesHacia.derecha, 
+    puntoinicial:Punto(columna: 1, fila: 3));
+submarino.agregarBarco(lancha.puntoinicial, lancha.tipo, lancha.direccion);
+
+var crucero= Barco
+    (tipo: TipodeBarco.crucero, 
+    direccion: direccionesHacia.derecha, 
+    puntoinicial:Punto(columna: 1, fila: 5));
+crucero.agregarBarco(lancha.puntoinicial, lancha.tipo, lancha.direccion);
+
+var portaaviones= Barco
+    (tipo: TipodeBarco.portaaviones, 
+    direccion: direccionesHacia.derecha, 
+    puntoinicial:Punto(columna: 1, fila: 7));
+portaaviones.agregarBarco(lancha.puntoinicial, lancha.tipo, lancha.direccion);
+
+expect(()=>Flotilla([lancha,bote,crucero,portaaviones,submarino]), throwsA(isA<FlotillaFueraDeRangoException>()));
+  });
+ test('los barcos de la flotilla no deben estar demasiado juntos', () {
+  var lancha = Barco(tipo: TipodeBarco.lancha, direccion: direccionesHacia.derecha, puntoinicial: Punto(columna: 0, fila: 0));
+  lancha.agregarBarco(lancha.puntoinicial, lancha.tipo, lancha.direccion);
+
+  var bote = Barco(tipo: TipodeBarco.bote, direccion: direccionesHacia.abajo, puntoinicial: Punto(columna: 1, fila: 0));
+  bote.agregarBarco(bote.puntoinicial, bote.tipo, bote.direccion);
+
+  var submarino = Barco(tipo: TipodeBarco.submarino, direccion: direccionesHacia.abajo, puntoinicial: Punto(columna: 3, fila: 0));
+  submarino.agregarBarco(submarino.puntoinicial, submarino.tipo, submarino.direccion);
+
+  var crucero = Barco(tipo: TipodeBarco.crucero, direccion: direccionesHacia.abajo, puntoinicial: Punto(columna: 5, fila: 0));
+  crucero.agregarBarco(crucero.puntoinicial, crucero.tipo, crucero.direccion);
+
+  var portaaviones = Barco(tipo: TipodeBarco.portaaviones, direccion: direccionesHacia.derecha, puntoinicial: Punto(columna: 0, fila: 5));
+  portaaviones.agregarBarco(portaaviones.puntoinicial, portaaviones.tipo, portaaviones.direccion);
+
+  expect(
+    () => Flotilla([lancha, bote, submarino, crucero, portaaviones]),
+    throwsA(isA<FlotillaMUYJUNTaException>()),
+  );
+});
+
 }
